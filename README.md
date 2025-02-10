@@ -11,6 +11,8 @@ I have also highlighted with red square, where flyway scripts run automatically 
 * > mvn clean install
 * > docker compose up
   
+Then open any browser and go to this link: http://localhost:8081/v1/credit-loan/swagger-ui/index.html
+
 
 ![Docker Compose Up](documents/img/docker-compose-up.png)
 
