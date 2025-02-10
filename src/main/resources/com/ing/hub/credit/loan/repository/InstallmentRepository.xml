@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ing.hub.credit.loan.repository.InstallmentRepository">
+
+    <insert id="upsertAll" parameterType="java.util.List" useGeneratedKeys="false">
+   MERGE INTO credit.installment a
+        USING (
+        <foreach collection="installmentEntities" item="installment" index="index" separator="UNION">
+            SELECT
+            #{installment.id, jdbcType=VARCHAR} as id,
+            #{installment.loanId, jdbcType=VARCHAR } as loanId,
+            #{installment.amount, jdbcType=NUMERIC} as amount,
+            #{installment.paidAmount, jdbcType=NUMERIC} as paidAmount,
+            #{installment.dueDate, jdbcType=VARCHAR} as dueDate,
+            #{installment.paymentDate, jdbcType=VARCHAR } as paymentDate,
+            #{installment.paid, jdbcType=VARCHAR} as paid
+        </foreach>
+        ) b ON a.id = b.id
+        WHEN NOT MATCHED THEN
+        INSERT (id, loan_id, amount, paid_amount, due_date, paid)
+        VALUES (b.id, b.loanId, b.amount, b.paidAmount, (b.dueDate::timestamp AT TIME ZONE 'UTC') , b.paid)
+        WHEN MATCHED THEN
+        UPDATE SET loan_id = b.loanId,  amount = b.amount, paid_amount = b.paidAmount, due_date = (b.dueDate::timestamp AT TIME ZONE 'UTC'),
+        payment_date =(b.paymentDate::timestamp AT TIME ZONE 'UTC'), paid = b.paid
+    </insert>
+
+    <select id="findByLoanId" resultMap="InstallmentEntity">
+        SELECT * FROM credit.installment WHERE loan_id = #{loanId} order by due_date asc
+    </select>
+
+
+    <resultMap id="InstallmentEntity" type="com.ing.hub.credit.loan.entity.InstallmentEntity">
+    </resultMap>
+
+</mapper>

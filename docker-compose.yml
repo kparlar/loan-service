@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  loan:
+    image: 'loan-service:latest'
+    build:
+      context: .
+    container_name: loan
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"

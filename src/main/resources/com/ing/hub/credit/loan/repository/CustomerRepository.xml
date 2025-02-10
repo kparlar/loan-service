@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ing.hub.credit.loan.repository.CustomerRepository">
+
+
+    <update id="upsert" parameterType="com.ing.hub.credit.loan.repository.CustomerRepository">
+        INSERT INTO credit.customer (id, username, name, surname, credit_limit, used_credit_limit)
+        VALUES (#{id}, #{username}, #{name}, #{surname}, #{creditLimit}, #{usedCreditLimit})
+            ON CONFLICT (id) DO
+        UPDATE
+            SET
+                name = #{name},
+                surname =  #{surname},
+                credit_limit = #{creditLimit},
+                used_credit_limit =  #{usedCreditLimit}
+    </update>
+
+    <select id="findById" resultMap="CustomerEntity">
+        SELECT * FROM credit.customer WHERE id = #{id}
+    </select>
+
+    <select id="findByLoanId" resultMap="CustomerEntity">
+        SELECT c.* FROM credit.customer c, credit.loan l
+        WHERE
+            c.id = l.customer_id AND
+            l.id = #{loanId}
+    </select>
+
+
+
+    <resultMap id="CustomerEntity" type="com.ing.hub.credit.loan.entity.CustomerEntity">
+    </resultMap>
+
+</mapper>
