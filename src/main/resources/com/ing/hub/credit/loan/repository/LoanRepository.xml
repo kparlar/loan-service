@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ing.hub.credit.loan.repository.LoanRepository">
+
+    <update id="upsert" parameterType="com.ing.hub.credit.loan.repository.CustomerRepository">
+        INSERT INTO credit.loan (id, customer_id, loan_amount, number_of_installment, create_date, paid)
+        VALUES (#{id}, #{customerId}, #{loanAmount}, #{numberOfInstallment}, #{createDate}, #{paid})
+            ON CONFLICT (id) DO
+        UPDATE
+            SET
+                customer_id = #{customerId},
+                loan_amount = #{loanAmount},
+                number_of_installment = #{numberOfInstallment},
+                create_date =  #{createDate},
+                paid = #{paid}
+    </update>
+    <select id="findByCustomerId" resultMap="LoanEntity">
+        SELECT * FROM credit.loan WHERE customer_id = #{customerId}
+    </select>
+
+    <select id="findById" resultType="com.ing.hub.credit.loan.entity.LoanEntity">
+        SELECT * FROM credit.loan WHERE id = #{id}
+    </select>
+
+
+    <resultMap id="LoanEntity" type="com.ing.hub.credit.loan.entity.LoanEntity">
+    </resultMap>
+
+</mapper>
