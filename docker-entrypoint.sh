@@ -34,4 +34,3 @@ fi
 java -jar -Dspring.profiles.active=local loan-service.jar
 
 exec "$@"
-
