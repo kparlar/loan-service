@@ -8,10 +8,27 @@ bridges with almost pure native bridges which is used in MyBatis to make the que
 ## How To Run
 Run these commands respectively under loan-service project folder. You can see the output as given below console.
 I have also highlighted with red square, where flyway scripts run automatically at first run. 
+Firstly got to your folder on your cmdline and run given below command first. This command disable auto saving files in windows format if your working on 
+windows. docker-entrypoint.sh  files converted to Windowx (CR LF)  which prevent this file run on docker. so we need to disable it in git configuration first. 
+Given below cmd example given.
+
+* > git config --global core.autocrlf false
+* > git clone https://github.com/kparlar/loan-service.git
+  
+![Git Global Config](documents/img/git-global-config.png)
+  
+enter loan-service folder and run below commands.
+
+* > cd loan-service
 * > mvn clean install
 * > docker compose up
+
+
+![MVN command](documents/img/mvn-command.png)
   
-Then open any browser and go to this link: http://localhost:8081/v1/credit-loan/swagger-ui/index.html
+![Docker compose](documents/img/docker-compose.png)
+
+* > Then open any browser and go to this link: http://localhost:8081/v1/credit-loan/swagger-ui/index.html
 
 
 ![Docker Compose Up](documents/img/docker-compose-up.png)
