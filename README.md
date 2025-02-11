@@ -40,6 +40,35 @@ Docker compose output screen is given below. I have highlighted flyway script lo
 ![Docker Compose Up](documents/img/docker-compose-up.png)
 
 
+## Using App
+After you run the application, you can start using app. there are two customers initially created by app.
+These are 
+* customer 1:  Memphis :  4ed6e47c-5672-4c46-8877-2819452d5bc6
+* customer 2:  Virgil  :  d00df094-5308-46cf-9109-66ec74d544d3
+
+You can call this api with one of the customer id, and create loan and pay according to your needs.
+
+* http://localhost:8081/v1/credit-loan/swagger-ui/index.html#/loan-controller/createLoan
+
+When calling this endpoint from OpenAPI, it will ask username and password.
+
+For Memphis user;
+* username : memphis
+* password : memphis
+
+For Virgil user;
+* username : virgil
+* password : virgil
+
+For Admin user;
+* username : admin
+* password : test12345*
+
+
+![Permission](documents/img/permission.png)
+
+
+Have fun.
 
 ## Tech Stack Card
 This app is built on SpringBoot, java backend project. Given below related frameworks and tools used. 
