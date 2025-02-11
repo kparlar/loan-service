@@ -4,6 +4,11 @@ In the use case it is mentioned as build the project as it will be used in produ
 so i try to build the project with real environment configurations and tools. Like Database i used Postgresql. And make the 
 bridges with almost pure native bridges which is used in MyBatis to make the query time perform better.
 
+## Requirements
+Before continue, please check your environment to cover given below technology versions.
+* Java JDK 21.0.2
+* Apache Maven 3.9.6
+* Docker 26.0.0
 
 ## How To Run
 Before cloning the project, you have to run this : git config --global core.autocrlf false . This command disable auto saving files in windows format if your working on 
